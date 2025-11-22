@@ -172,7 +172,7 @@ router.get('/compiled/recommendations', async (req, res) => {
             hotels = src.map((h) => {
                 const loc = h?.location?.lat && h?.location?.lng ? { lat: Number(h.location.lat), lng: Number(h.location.lng) } : null;
                 const distanceKm = (center && loc) ? Number(haversine(center, loc).toFixed(2)) : null;
-                return { id: h.hotelId || h.id || '', name: h.name, rating: h.rating ?? null, price: h.price ?? null, address: h.address ?? '', distanceKm };
+                return { id: h.hotelId || h.id || '', name: h.name, rating: h.rating ?? null, price: h.price ?? null, address: h.address ?? '', adname: h.adname ?? '', distanceKm };
             });
         }
         if (!poi || poi.length === 0) {
@@ -187,7 +187,7 @@ router.get('/compiled/recommendations', async (req, res) => {
             poi = src.map((p) => {
                 const loc = p?.location?.lat && p?.location?.lng ? { lat: Number(p.location.lat), lng: Number(p.location.lng) } : null;
                 const distanceKm = (center && loc) ? Number(haversine(center, loc).toFixed(2)) : null;
-                return { id: p.poiId || p.id || '', name: p.name, rating: p.rating ?? null, category: p.category ?? '', address: p.address ?? '', distanceKm };
+                return { id: p.poiId || p.id || '', name: p.name, rating: p.rating ?? null, category: p.category ?? '', address: p.address ?? '', adname: p.adname ?? '', distanceKm };
             });
         }
         const weatherOut = w || { text: '晴', tempRange: '10-18℃' };

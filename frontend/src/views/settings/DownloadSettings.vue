@@ -33,6 +33,7 @@ import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import api from '@/services/http'
 import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const fileNamePattern = ref('<origin>-to-<destination>_<yyyyMMdd-HHmm>_<format>')
 const downloadPath = ref('Desktop')
@@ -187,4 +188,3 @@ loadSettings()
   background: #eee;
 }
 </style>
-const router = useRouter()

@@ -1,0 +1,907 @@
+{
+  "total": 100,
+  "correct": 0,
+  "failed": 100,
+  "cases": [
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-22"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-21"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-20"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-19"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-18"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-17"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-16"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-15"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-14"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "广州",
+        "destination": "北京",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "深圳",
+        "destination": "上海",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "上海",
+        "destination": "广州",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "杭州",
+        "destination": "深圳",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "南京",
+        "destination": "杭州",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "成都",
+        "destination": "南京",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "重庆",
+        "destination": "成都",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "武汉",
+        "destination": "重庆",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "西安",
+        "destination": "武汉",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    },
+    {
+      "input": {
+        "origin": "北京",
+        "destination": "西安",
+        "date": "2025-11-13"
+      },
+      "ok": false,
+      "note": "invalid_two_part_or_price"
+    }
+  ]
+}

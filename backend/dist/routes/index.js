@@ -36,5 +36,3 @@ router.use(air);
 router.use(metrics);
 router.use(amapTools);
 router.use(compiled);
-router.use(llm);
-router.use(history);

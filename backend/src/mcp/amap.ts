@@ -117,63 +117,112 @@ export async function searchPoi(args: { city: string; interests?: string[]; rati
 }
 
 export async function getPoiDetail(args: { id: string }): Promise<any> {
-  const resp = await callTool('maps_search_detail', { poi_id: args.id, extensions: 'all' })
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_search_detail', { poi_id: args.id, extensions: 'all' })
+    return resp?.data ?? resp
+  } catch {
+    const data = await webPoiDetail({ id: args.id })
+    return data
+  }
 }
 
 export async function planWalking(args: { origin: string; destination: string }): Promise<any> {
-  const resp = await callTool('maps_direction_walking', { from: args.origin, to: args.destination })
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_direction_walking', { from: args.origin, to: args.destination })
+    return resp?.data ?? resp
+  } catch {
+    return await webWalking({ origin: args.origin, destination: args.destination })
+  }
 }
 
 export async function planDriving(args: { origin: string; destination: string }): Promise<any> {
-  const resp = await callTool('maps_direction_driving', { from: args.origin, to: args.destination })
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_direction_driving', { from: args.origin, to: args.destination })
+    return resp?.data ?? resp
+  } catch {
+    return await webDriving({ origin: args.origin, destination: args.destination })
+  }
 }
 
 export async function planTransitIntegrated(args: { origin: string; destination: string; city: string; cityd: string }): Promise<any> {
-  const resp = await callTool('maps_direction_transit_integrated', { from: args.origin, to: args.destination, city: args.city, cityd: args.cityd })
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_direction_transit_integrated', { from: args.origin, to: args.destination, city: args.city, cityd: args.cityd })
+    return resp?.data ?? resp
+  } catch {
+    return await webTransit({ origin: args.origin, destination: args.destination, city: args.city, cityd: args.cityd })
+  }
 }
 
 export async function textSearch(args: { keyword: string; city: string; page?: number; limit?: number; sort?: string }): Promise<any> {
-  const resp = await callTool('maps_text_search', { keywords: args.keyword, city: args.city, citylimit: true })
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_text_search', { keywords: args.keyword, city: args.city, citylimit: true })
+    return resp?.data ?? resp
+  } catch {
+    return await webTextSearch({ keyword: args.keyword, city: args.city })
+  }
 }
 
 export async function aroundSearch(args: { location: string; keyword: string; radius?: number; page?: number; limit?: number; category?: string }): Promise<any> {
-  const resp = await callTool('maps_around_search', { keywords: args.keyword, location: args.location, radius: String(args.radius || 5000) })
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_around_search', { keywords: args.keyword, location: args.location, radius: String(args.radius || 5000) })
+    return resp?.data ?? resp
+  } catch {
+    return await webPlaceAround({ keyword: args.keyword, location: args.location, radius: String(args.radius || 5000) })
+  }
 }
 
 export async function regeocode(args: { location: string; radius?: number; poi?: boolean }): Promise<any> {
-  const resp = await callTool('maps_regeocode', args)
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_regeocode', args)
+    return resp?.data ?? resp
+  } catch {
+    return await webRegeocode({ location: args.location, radius: args.radius, poi: args.poi })
+  }
 }
 
 export async function geo(args: { address: string; city?: string; batch?: boolean }): Promise<any> {
-  const resp = await callTool('maps_geo', args)
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_geo', args)
+    return resp?.data ?? resp
+  } catch {
+    return await webGeo({ address: args.address, city: args.city })
+  }
 }
 
 export async function distance(args: { origins: string; destinations: string; type?: string }): Promise<any> {
-  const resp = await callTool('maps_distance', args)
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_distance', args)
+    return resp?.data ?? resp
+  } catch {
+    return await webDistance({ origins: args.origins, destination: args.destinations, type: args.type })
+  }
 }
 
 export async function directionBicycling(args: { from: string; to: string; departure_time?: string; avoid?: string; limit?: number }): Promise<any> {
-  const resp = await callTool('maps_direction_bicycling', args)
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_direction_bicycling', args)
+    return resp?.data ?? resp
+  } catch {
+    return await webBicycling({ origin: args.from, destination: args.to })
+  }
 }
 
 export async function directionDriving(args: { from: string; to: string; avoid?: string; departure_time?: string; strategy?: number }): Promise<any> {
-  const resp = await callTool('maps_direction_driving', args)
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_direction_driving', args)
+    return resp?.data ?? resp
+  } catch {
+    return await webDriving({ origin: args.from, destination: args.to, strategy: args.strategy })
+  }
 }
 
 export async function directionTransit(args: { from: string; to: string; departure_time?: string; transit_type?: string; limit?: number }): Promise<any> {
-  const resp = await callTool('maps_direction_transit_integrated', args)
-  return resp?.data ?? resp
+  try {
+    const resp = await callTool('maps_direction_transit_integrated', args)
+    return resp?.data ?? resp
+  } catch {
+    return await webTransit({ origin: args.from, destination: args.to, city: '', cityd: '' })
+  }
 }
 
 export async function weather(args: { city: string; date?: string; extensions?: string }): Promise<any> {
@@ -186,6 +235,14 @@ export async function weather(args: { city: string; date?: string; extensions?: 
 }
 
 // Fallback Gaode RESTful API helpers
+async function webPoiDetail(args: { id: string }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/place/detail?key=${encodeURIComponent(key)}&id=${encodeURIComponent(args.id)}&extensions=all`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
+}
 async function webTextSearch(args: { keyword: string; city: string }): Promise<any> {
   const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
   const key = env.GAODE_WEB_API_KEY
@@ -220,4 +277,76 @@ function locOf(s: string | undefined) {
   const [lng, lat] = String(s).split(',').map(Number)
   if (Number.isFinite(lat) && Number.isFinite(lng)) return { lat, lng }
   return undefined
+}
+async function webPlaceAround(args: { keyword: string; location: string; radius: string }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/place/around?key=${encodeURIComponent(key)}&keywords=${encodeURIComponent(args.keyword)}&location=${encodeURIComponent(args.location)}&radius=${encodeURIComponent(args.radius)}`
+  const r = await axios.get(url, { timeout: 10000 })
+  const pois = (r.data && r.data.pois) || []
+  return pois.map((p: any) => ({ id: p.id, poiId: p.id, name: p.name, category: p.type, rating: Number(p.biz_ext?.rating || 0), address: p.address, adname: p.adname, location: locOf(p.location) }))
+}
+
+async function webRegeocode(args: { location: string; radius?: number; poi?: boolean }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/geocode/regeo?key=${encodeURIComponent(key)}&location=${encodeURIComponent(args.location)}&extensions=all${args.radius ? `&radius=${args.radius}` : ''}${args.poi ? `&poi=${args.poi}` : ''}`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
+}
+
+async function webGeo(args: { address: string; city?: string }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/geocode/geo?key=${encodeURIComponent(key)}&address=${encodeURIComponent(args.address)}${args.city ? `&city=${encodeURIComponent(args.city)}` : ''}`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
+}
+
+async function webDistance(args: { origins: string; destination: string; type?: string }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/distance?key=${encodeURIComponent(key)}&origins=${encodeURIComponent(args.origins)}&destination=${encodeURIComponent(args.destination)}${args.type ? `&type=${encodeURIComponent(args.type)}` : ''}`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
+}
+
+async function webDriving(args: { origin: string; destination: string; strategy?: number }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/direction/driving?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}&extensions=all${typeof args.strategy === 'number' ? `&strategy=${args.strategy}` : ''}`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
+}
+
+async function webWalking(args: { origin: string; destination: string }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/direction/walking?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
+}
+
+async function webTransit(args: { origin: string; destination: string; city: string; cityd: string }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v3/direction/transit/integrated?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}&city=${encodeURIComponent(args.city)}&cityd=${encodeURIComponent(args.cityd)}`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
+}
+
+async function webBicycling(args: { origin: string; destination: string }): Promise<any> {
+  const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '')
+  const key = env.GAODE_WEB_API_KEY
+  if (!key) throw new Error('missing_gaode_web_api_key')
+  const url = `${base}/v4/direction/bicycling?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}`
+  const r = await axios.get(url, { timeout: 10000 })
+  return r.data
 }

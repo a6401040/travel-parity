@@ -17,8 +17,6 @@ import { router as air } from './air.js'
 import { router as metrics } from './metrics.js'
 import { router as amapTools } from './amapTools.js'
 import { router as compiled } from './compiled.js'
-import { router as llm } from './llm.js'
-import { router as history } from './history.js'
 
 export const router = Router()
 router.use(options)
@@ -39,5 +37,3 @@ router.use(air)
 router.use(metrics)
 router.use(amapTools)
 router.use(compiled)
-router.use(llm)
-router.use(history)

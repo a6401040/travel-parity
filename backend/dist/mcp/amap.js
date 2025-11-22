@@ -117,52 +117,113 @@ export async function searchPoi(args) {
     return merged.map((it) => PoiSchema.parse({ poiId: it.poiId || it.id, name: it.name, category: it.category, rating: (typeof it.rating === 'number' ? it.rating : (typeof it.score === 'number' ? it.score : undefined)), location: it.location, address: it.address }));
 }
 export async function getPoiDetail(args) {
-    const resp = await callTool('maps_search_detail', { poi_id: args.id, extensions: 'all' });
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_search_detail', { poi_id: args.id, extensions: 'all' });
+        return resp?.data ?? resp;
+    }
+    catch {
+        const data = await webPoiDetail({ id: args.id });
+        return data;
+    }
 }
 export async function planWalking(args) {
-    const resp = await callTool('maps_direction_walking', { from: args.origin, to: args.destination });
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_direction_walking', { from: args.origin, to: args.destination });
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webWalking({ origin: args.origin, destination: args.destination });
+    }
 }
 export async function planDriving(args) {
-    const resp = await callTool('maps_direction_driving', { from: args.origin, to: args.destination });
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_direction_driving', { from: args.origin, to: args.destination });
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webDriving({ origin: args.origin, destination: args.destination });
+    }
 }
 export async function planTransitIntegrated(args) {
-    const resp = await callTool('maps_direction_transit_integrated', { from: args.origin, to: args.destination, city: args.city, cityd: args.cityd });
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_direction_transit_integrated', { from: args.origin, to: args.destination, city: args.city, cityd: args.cityd });
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webTransit({ origin: args.origin, destination: args.destination, city: args.city, cityd: args.cityd });
+    }
 }
 export async function textSearch(args) {
-    const resp = await callTool('maps_text_search', { keywords: args.keyword, city: args.city, citylimit: true });
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_text_search', { keywords: args.keyword, city: args.city, citylimit: true });
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webTextSearch({ keyword: args.keyword, city: args.city });
+    }
 }
 export async function aroundSearch(args) {
-    const resp = await callTool('maps_around_search', { keywords: args.keyword, location: args.location, radius: String(args.radius || 5000) });
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_around_search', { keywords: args.keyword, location: args.location, radius: String(args.radius || 5000) });
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webPlaceAround({ keyword: args.keyword, location: args.location, radius: String(args.radius || 5000) });
+    }
 }
 export async function regeocode(args) {
-    const resp = await callTool('maps_regeocode', args);
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_regeocode', args);
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webRegeocode({ location: args.location, radius: args.radius, poi: args.poi });
+    }
 }
 export async function geo(args) {
-    const resp = await callTool('maps_geo', args);
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_geo', args);
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webGeo({ address: args.address, city: args.city });
+    }
 }
 export async function distance(args) {
-    const resp = await callTool('maps_distance', args);
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_distance', args);
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webDistance({ origins: args.origins, destination: args.destinations, type: args.type });
+    }
 }
 export async function directionBicycling(args) {
-    const resp = await callTool('maps_direction_bicycling', args);
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_direction_bicycling', args);
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webBicycling({ origin: args.from, destination: args.to });
+    }
 }
 export async function directionDriving(args) {
-    const resp = await callTool('maps_direction_driving', args);
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_direction_driving', args);
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webDriving({ origin: args.from, destination: args.to, strategy: args.strategy });
+    }
 }
 export async function directionTransit(args) {
-    const resp = await callTool('maps_direction_transit_integrated', args);
-    return resp?.data ?? resp;
+    try {
+        const resp = await callTool('maps_direction_transit_integrated', args);
+        return resp?.data ?? resp;
+    }
+    catch {
+        return await webTransit({ origin: args.from, destination: args.to, city: '', cityd: '' });
+    }
 }
 export async function weather(args) {
     try {
@@ -174,6 +235,15 @@ export async function weather(args) {
     }
 }
 // Fallback Gaode RESTful API helpers
+async function webPoiDetail(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/place/detail?key=${encodeURIComponent(key)}&id=${encodeURIComponent(args.id)}&extensions=all`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
+}
 async function webTextSearch(args) {
     const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
     const key = env.GAODE_WEB_API_KEY;
@@ -210,4 +280,77 @@ function locOf(s) {
     if (Number.isFinite(lat) && Number.isFinite(lng))
         return { lat, lng };
     return undefined;
+}
+async function webPlaceAround(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/place/around?key=${encodeURIComponent(key)}&keywords=${encodeURIComponent(args.keyword)}&location=${encodeURIComponent(args.location)}&radius=${encodeURIComponent(args.radius)}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    const pois = (r.data && r.data.pois) || [];
+    return pois.map((p) => ({ id: p.id, poiId: p.id, name: p.name, category: p.type, rating: Number(p.biz_ext?.rating || 0), address: p.address, adname: p.adname, location: locOf(p.location) }));
+}
+async function webRegeocode(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/geocode/regeo?key=${encodeURIComponent(key)}&location=${encodeURIComponent(args.location)}&extensions=all${args.radius ? `&radius=${args.radius}` : ''}${args.poi ? `&poi=${args.poi}` : ''}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
+}
+async function webGeo(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/geocode/geo?key=${encodeURIComponent(key)}&address=${encodeURIComponent(args.address)}${args.city ? `&city=${encodeURIComponent(args.city)}` : ''}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
+}
+async function webDistance(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/distance?key=${encodeURIComponent(key)}&origins=${encodeURIComponent(args.origins)}&destination=${encodeURIComponent(args.destination)}${args.type ? `&type=${encodeURIComponent(args.type)}` : ''}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
+}
+async function webDriving(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/direction/driving?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}&extensions=all${typeof args.strategy === 'number' ? `&strategy=${args.strategy}` : ''}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
+}
+async function webWalking(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/direction/walking?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
+}
+async function webTransit(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v3/direction/transit/integrated?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}&city=${encodeURIComponent(args.city)}&cityd=${encodeURIComponent(args.cityd)}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
+}
+async function webBicycling(args) {
+    const base = (env.GAODE_WEB_BASE_URL || 'https://restapi.amap.com').replace(/\/$/, '');
+    const key = env.GAODE_WEB_API_KEY;
+    if (!key)
+        throw new Error('missing_gaode_web_api_key');
+    const url = `${base}/v4/direction/bicycling?key=${encodeURIComponent(key)}&origin=${encodeURIComponent(args.origin)}&destination=${encodeURIComponent(args.destination)}`;
+    const r = await axios.get(url, { timeout: 10000 });
+    return r.data;
 }

@@ -8,7 +8,7 @@
       <div class="schemes-container">
         <h2 class="section-title">为您推荐的出行方案</h2>
         <div class="cards">
-          <div v-for="scheme in schemes" :key="scheme.title" class="card">
+          <div v-for="scheme in orderedSchemes" :key="scheme.title" class="card">
             <div class="title">{{ scheme.title }}</div>
             <div class="meta">
               <span class="pill">总价 ¥{{ scheme.totalPrice }}</span>
@@ -34,31 +34,47 @@
         </div>
         
         <div class="additional-info">
-          <div class="hotels-section">
-            <h3 class="section-title">酒店推荐</h3>
+          <div class="routes-section">
+            <h3 class="section-title">目的地旅游路线</h3>
             <div class="list">
-              <div v-for="hotel in hotels" :key="hotel.name" class="hotel">
-                <div class="title">🏨 {{ hotel.name }}</div>
-                <div class="meta">
-                  <span class="pill">评分 {{ hotel.rating }}</span>
-                  <span class="pill">价格 ¥{{ hotel.price }}</span>
-                </div>
-                <div>{{ hotel.reason }}</div>
+              <div v-for="route in destRoutes" :key="route.name" class="route">
+                <div class="title">🗺️ {{ route.name }} · {{ route.days }} 天</div>
+                <div v-for="(item, index) in route.items" :key="index">{{ item }}</div>
                 <div style="margin-top: 8px;">
-                  <a class="btn secondary" target="_blank" :href="hotel.url">查看位置</a>
+                  <a class="btn secondary" target="_blank" :href="route.url">查看地图</a>
+                </div>
+              </div>
+            </div>
+            <h3 class="section-title">经停地旅游路线</h3>
+            <div class="list">
+              <div v-for="route in viaRoutes" :key="route.name" class="route">
+                <div class="title">🗺️ {{ route.name }} · {{ route.days }} 天</div>
+                <div v-for="(item, index) in route.items" :key="index">{{ item }}</div>
+                <div style="margin-top: 8px;">
+                  <a class="btn secondary" target="_blank" :href="route.url">查看地图</a>
                 </div>
               </div>
             </div>
           </div>
           
-          <div class="routes-section">
-            <h3 class="section-title">热门旅游路线</h3>
+          <div class="hotels-section">
+            <h3 class="section-title">不同价位酒店推荐</h3>
             <div class="list">
-              <div v-for="route in routes" :key="route.name" class="route">
-                <div class="title">🗺️ {{ route.name }} · {{ route.days }} 天</div>
-                <div v-for="(item, index) in route.items" :key="index">{{ item }}</div>
-                <div style="margin-top: 8px;">
-                  <a class="btn secondary" target="_blank" :href="route.url">查看地图</a>
+              <div v-for="grp in hotelGroups" :key="grp.tier" class="hotel">
+                <div class="title">🏨 {{ grp.tier }}</div>
+                <div class="meta">
+                  <span class="pill">共 {{ grp.items.length }} 条</span>
+                </div>
+                <div>
+                  <div v-for="h in grp.items" :key="h.name" style="margin-top:6px;">
+                    <div><strong>{{ h.name }}</strong></div>
+                    <div class="meta">
+                      <span class="pill">评分 {{ h.rating }}</span>
+                      <span class="pill">价格 ¥{{ h.price }}</span>
+                    </div>
+                    <div>{{ h.reason }}</div>
+                    <div style="margin-top: 6px;"><a class="btn secondary" target="_blank" :href="h.url">查看位置</a></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -75,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 interface TravelSegment {
@@ -114,12 +130,31 @@ interface Route {
   days: number
   items: string[]
   url: string
+  kind: 'destination' | 'stopover'
 }
 
 const route = useRoute()
 const schemes = ref<TravelScheme[]>([])
 const hotels = ref<Hotel[]>([])
 const routes = ref<Route[]>([])
+const destRoutes = computed(() => routes.value.filter(r => r.kind === 'destination'))
+const viaRoutes = computed(() => routes.value.filter(r => r.kind === 'stopover'))
+const hotelGroups = computed(() => {
+  const premium = hotels.value.filter(h => h.price >= 500)
+  const comfort = hotels.value.filter(h => h.price < 500 && h.price >= 300)
+  const budget = hotels.value.filter(h => h.price < 300)
+  return [
+    { tier: '高端（¥500+）', items: premium },
+    { tier: '舒适（¥300-¥499）', items: comfort },
+    { tier: '经济（¥<300）', items: budget }
+  ]
+})
+const orderedSchemes = computed(() => {
+  const t = schemes.value.slice()
+  const order = ['时间优先', '价格优先', '综合优先']
+  t.sort((a, b) => order.indexOf(a.title) - order.indexOf(b.title))
+  return t
+})
 
 // 模拟数据生成函数
 const mockSchemes = (origin: string, destination: string, priceFirst: boolean = false): TravelScheme[] => {
@@ -250,7 +285,7 @@ const mockHotels = (destination: string): Hotel[] => [
   }
 ]
 
-const mockRoutes = (destination: string): Route[] => [
+const mockRoutes = (destination: string, stopover: string): Route[] => [
   {
     name: `${destination}三日精华`,
     days: 3,
@@ -259,7 +294,36 @@ const mockRoutes = (destination: string): Route[] => [
       'D2 上午-地标建筑 下午-城市公园',
       'D3 上午-艺术馆 下午-美食区'
     ],
-    url: 'https://www.amap.com'
+    url: 'https://www.amap.com',
+    kind: 'destination'
+  },
+  {
+    name: `${destination}美食与夜游`,
+    days: 2,
+    items: [
+      'D1 城市地标与夜市',
+      'D2 老街区与美食探索'
+    ],
+    url: 'https://www.amap.com',
+    kind: 'destination'
+  },
+  {
+    name: `${stopover}文化速览`,
+    days: 1,
+    items: [
+      '上午-博物馆 下午-地标建筑'
+    ],
+    url: 'https://www.amap.com',
+    kind: 'stopover'
+  },
+  {
+    name: `${stopover}城市漫步`,
+    days: 1,
+    items: [
+      '上午-历史街区 下午-城市公园'
+    ],
+    url: 'https://www.amap.com',
+    kind: 'stopover'
   }
 ]
 
@@ -267,12 +331,13 @@ onMounted(() => {
   // 从路由参数获取出发地和目的地
   const origin = (route.query.origin as string) || '广州'
   const destination = (route.query.destination as string) || '保定'
+  const stopover = (route.query.via as string) || '北京'
   const priceFirst = route.query.priceFirst === 'true'
   
   // 生成模拟数据
   schemes.value = mockSchemes(origin, destination, priceFirst)
   hotels.value = mockHotels(destination)
-  routes.value = mockRoutes(destination)
+  routes.value = mockRoutes(destination, stopover)
 })
 </script>
 

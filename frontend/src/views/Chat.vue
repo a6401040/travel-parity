@@ -398,6 +398,101 @@ const goToRegister = () => {
 .message-text {
   line-height: 1.5;
   word-break: break-word;
+  white-space: pre-line;
+}
+
+.message-text.rich {
+  white-space: normal;
+}
+
+.rich .section-title {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.rich .scheme-title {
+  font-weight: 600;
+  margin: 6px 0;
+  color: #1f2937;
+}
+
+.rich .scheme.card-time {
+  border-left: 4px solid #1d4ed8;
+  background: #eef2ff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.rich .scheme.card-price {
+  border-left: 4px solid #059669;
+  background: #ecfdf5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.rich .scheme-title .icon {
+  margin-right: 6px;
+}
+
+.rich ul.kv {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 6px 0;
+}
+
+.rich ul.kv li {
+  margin: 2px 0;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #eef2ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+.segments-list {
+  list-style: disc;
+  margin: 4px 0 6px 16px;
+}
+
+.segment-item .code {
+  font-weight: 600;
+}
+.segment-item .code.flight {
+  color: #1d4ed8;
+}
+.segment-item .code.train {
+  color: #059669;
+}
+
+.segment-item .time {
+  color: #374151;
+  margin-left: 6px;
+}
+
+.segment-item .price {
+  color: #065f46;
+  font-weight: 600;
+  margin-left: 6px;
+}
+.segment-item .price.low { color: #059669; }
+.segment-item .price.high { color: #dc2626; }
+.segment-item .price.med { color: #374151; }
+
+.segment-item a {
+  margin-left: 6px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.segment-item a:hover {
+  text-decoration: underline;
 }
 
 .message-time {
@@ -438,6 +533,10 @@ const goToRegister = () => {
   .message-content {
     max-width: 85%;
   }
+  .badge { font-size: 11px; }
+  .segments-list { margin-left: 14px; }
+  .segment-item .time { font-size: 13px; }
+  .segment-item .price { font-size: 13px; }
 }
 
 @media (max-width: 640px) {
@@ -455,5 +554,11 @@ const goToRegister = () => {
   .chat-header {
     padding: 1rem;
   }
+  .message-content { padding: 0.5rem 0.75rem; }
+  .message-text { font-size: 14px; }
 }
 </style>
+.bars { display: grid; gap: 6px; margin: 8px 0; }
+.bar-track { width: 100%; height: 8px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+.bar-fill-time { height: 100%; background: #3b82f6; }
+.bar-fill-price { height: 100%; background: #10b981; }

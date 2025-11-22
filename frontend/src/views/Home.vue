@@ -5,8 +5,8 @@
       <el-button size="small" type="warning" @click="goRegister">注册</el-button>
     </div>
     <div class="welcome-section">
-      <h1 class="welcome-title">欢迎使用出行助手</h1>
-      <p class="welcome-subtitle">让我帮您规划完美的出行方案</p>
+      <h1 class="welcome-title">Travel Parity</h1>
+      <p class="welcome-subtitle">时间与价格的平衡之旅</p>
       
       <div class="quick-actions">
         <el-button type="primary" size="large" @click="startChat">开始对话</el-button>
@@ -96,6 +96,7 @@ const goRegister = () => {
 </script>
 
 <style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap');
 .home-container {
   position: relative;
   min-height: 100vh;
@@ -147,11 +148,16 @@ const goRegister = () => {
 }
 
 .welcome-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 700;
-  color: #ffffff;
   margin-bottom: 1rem;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.06em;
+  font-family: 'Cinzel Decorative', serif;
+  background: linear-gradient(90deg, #fff, #e5e7eb 60%, #ffd54f);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .welcome-subtitle {
@@ -159,6 +165,7 @@ const goRegister = () => {
   color: #e5e7eb;
   margin-bottom: 2rem;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.04em;
 }
 
 .quick-actions {
@@ -220,7 +227,7 @@ const goRegister = () => {
   }
   
   .welcome-title {
-    font-size: 2rem;
+    font-size: 2.4rem;
   }
   
   .quick-actions {
