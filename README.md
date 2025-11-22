@@ -79,17 +79,11 @@ frontend/
   - 构建：`npm run build`
   - 预览：`npm run preview`
 
-## 数据与校验
-- LLM 输出：`LLMOutputSchema` 在 `backend/src/schemas/llm.ts:56-61`。
-- 航班/列车选项：`backend/src/schemas/flight.ts:3-16`、`backend/src/schemas/train.ts:3-10`。
+# 系统截图
+## 对话界面
+blob:https://n06v1fidmnc.feishu.cn/5d0f0456-804d-4ba3-b94f-51f860944154
 
-## 稳定性与可观测性
-- 限流：每分钟调用上限由环境变量控制。
-- 熔断：连续失败达到阈值后短暂打开，避免雪崩（`backend/src/services/circuit.ts:10-19`）。
-- 重试：指数退避重试（`backend/src/services/circuit.ts:21-36`）。
-- 指标：`cache_hits`/`upstream_duration_ms` 直方图，暴露在 `/api/metrics`。
+blob:https://n06v1fidmnc.feishu.cn/bcab88aa-fc46-4090-9a4a-ead69c216c98
+## 系统界面
 
-## 开发建议
-- 在启动时统一校验必需环境变量，减少运行期错误。
-- 为路由与服务层补充 `vitest/jest + supertest` 测试，覆盖常见降级路径与边界。
-- 对 LLM 失败详情（`llm_chain_failed`）可在响应中附带 `errors.details` 以便排障。
+blob:https://n06v1fidmnc.feishu.cn/db112db6-434c-4128-ae23-5195f2550f32
