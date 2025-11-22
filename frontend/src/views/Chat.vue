@@ -1,8 +1,9 @@
 <template>
   <div class="chat-container">
-    <div class="chat-header">
-      <div class="header-left">
+  <div class="chat-header">
+    <div class="header-left">
         <h2>智能对话</h2>
+        <el-tag v-if="isTrae" type="success" size="small">Trae 友好</el-tag>
         <el-tag v-if="isGuest" type="warning" size="small">
           游客模式
         </el-tag>
@@ -128,6 +129,10 @@ const currentConversationObj = computed(() =>
 )
 const messages = computed(() => chatStore.messages)
 const isGuest = computed(() => authStore.isGuest)
+const isTrae = computed(() => {
+  const ua = navigator.userAgent || ''
+  return ua.includes('Trae')
+})
 
 onMounted(() => {
   // 游客模式提示
@@ -325,13 +330,24 @@ const goToRegister = () => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: white;
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat fixed;
+  position: relative;
+}
+
+.chat-area::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(2px);
 }
 
 .messages-container {
   flex: 1;
   overflow-y: auto;
   padding: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .empty-state {
@@ -361,15 +377,17 @@ const goToRegister = () => {
     flex-direction: row-reverse;
     
     .message-content {
-      background-color: #3b82f6;
-      color: white;
+      background-color: rgba(59, 130, 246, 0.7);
+      color: #fff;
+      backdrop-filter: blur(4px);
     }
   }
   
   &.assistant {
     .message-content {
-      background-color: #f3f4f6;
+      background-color: rgba(243, 244, 246, 0.7);
       color: #1f2937;
+      backdrop-filter: blur(4px);
     }
   }
 }
@@ -507,6 +525,8 @@ const goToRegister = () => {
   display: flex;
   gap: 1rem;
   align-items: flex-end;
+  position: relative;
+  z-index: 1;
   
   .el-textarea {
     flex: 1;
@@ -516,7 +536,8 @@ const goToRegister = () => {
 .guest-prompt {
   padding: 1rem 1.5rem;
   border-top: 1px solid #e5e7eb;
-  background-color: #fffbeb;
+  background-color: rgba(255, 251, 235, 0.8);
+  backdrop-filter: blur(2px);
 }
 
 .guest-actions {

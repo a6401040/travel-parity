@@ -95,10 +95,37 @@ router.post('/llm/recommendations', async (req, res) => {
       note: '航班数据来自近10天的 c_trip_data_new，查询使用机场三字码(IATA)。当航班为空或日期超出范围，请明确说明并给出替代建议（更换日期/优先高铁/先到最近大城市再转运）。'
     }
     const data = await generateRecommendationsLLM({ ...payload, guidance })
+    try {
+      const hasPriceFirst = Array.isArray((data as any)?.schemes?.priceFirst) && (data as any).schemes.priceFirst.length > 0
+      const hasTimeFirst = Array.isArray((data as any)?.schemes?.timeFirst) && (data as any).schemes.timeFirst.length > 0
+      // 以 12306 MCP 的车次票价兜底 priceFirst
+      if (!hasPriceFirst) {
+        const flatSeats = (payload.trains as any[]).flatMap(t => (t.seatTypes || []).map((s: any) => ({
+          trainNo: t.trainNo,
+          departTime: t.departTime,
+          arriveTime: t.arriveTime,
+          price: typeof s.price === 'number' ? s.price : Infinity
+        }))).filter(x => Number.isFinite(x.price))
+        if (flatSeats.length > 0) {
+          flatSeats.sort((a, b) => a.price - b.price)
+          const best = flatSeats[0]
+          (data as any).schemes = (data as any).schemes || {}
+          ;(data as any).schemes.priceFirst = [{
+            title: '价格优先',
+            totalTimeMinutes: 0,
+            totalPrice: best.price,
+            transfers: 0,
+            segments: [{ mode: 'train', optionId: best.trainNo, departTime: best.departTime, arriveTime: best.arriveTime, price: best.price, booking: { provider: '12306', url: 'https://www.12306.cn/index/' } }],
+            reason: '来自12306的最低票价兜底方案（精确价格）'
+          }]
+        }
+      }
+    } catch {}
     res.json(data)
   } catch (e: any) {
     const msg = typeof e?.message === 'string' ? e.message : 'llm_error'
-    res.status(500).json({ error: 'llm_error', message: msg })
+    const fallback = { schemes: { timeFirst: [], priceFirst: [], balanced: [] }, needs_more_data: ['llm_error', msg.includes('missing_api_key') ? 'missing_api_key' : ''] }
+    res.json(fallback)
   }
 })
 

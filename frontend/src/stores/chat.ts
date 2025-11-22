@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import type { Message } from '@/types/travel'
 import type { Conversation } from '@/types/chat'
 import api from '@/services/http'
+import { useAuthStore } from '@/stores/auth'
 import { useTravelStore } from './travel'
 
 export const useChatStore = defineStore('chat', () => {
@@ -113,6 +114,7 @@ export const useChatStore = defineStore('chat', () => {
       let assistantText = ''
       const queryCache = (globalThis as any).__travelQueryCache || ((globalThis as any).__travelQueryCache = new Map<string, string>())
       let payloadForHistory: any = {}
+      const auth = useAuthStore()
       if (isPairIntent && isTrainScheduleIntent) {
         const travel = useTravelStore()
         const qDate = (dateFromText || travel.currentQuery?.departureDate || new Date().toISOString().slice(0,10))
@@ -355,13 +357,15 @@ export const useChatStore = defineStore('chat', () => {
       const assistantMessage: Message = { id: generateId(), content: assistantText, role: 'assistant', timestamp: new Date().toISOString(), type: 'text' }
       addMessage(assistantMessage)
       try {
-        const title = extractTitle(content)
-        const h = await api.post('/history', { title, ...payloadForHistory })
-        const hid = String(h?.data?.id || generateId())
-        if (!currentConversation.value) {
-          const newConversation: Conversation = { id: hid, title, messages: [userMessage, assistantMessage], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
-          addConversation(newConversation)
-          setCurrentConversation(newConversation.id)
+        if (!auth.isGuest) {
+          const title = extractTitle(content)
+          const h = await api.post('/history', { title, ...payloadForHistory })
+          const hid = String(h?.data?.id || generateId())
+          if (!currentConversation.value) {
+            const newConversation: Conversation = { id: hid, title, messages: [userMessage, assistantMessage], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }
+            addConversation(newConversation)
+            setCurrentConversation(newConversation.id)
+          }
         }
       } catch {}
     } catch (err) {
@@ -376,6 +380,12 @@ export const useChatStore = defineStore('chat', () => {
     setError(null)
 
     try {
+      const auth = useAuthStore()
+      if (auth.isGuest) {
+        setError('游客模式不加载历史')
+        setLoading(false)
+        return
+      }
       const h = await api.get(`/history/${conversationId}`)
       const row = h.data || {}
       const msgs: Message[] = []
@@ -403,9 +413,12 @@ export const useChatStore = defineStore('chat', () => {
     }
     
     try {
-      const h = await api.post('/history', { title: newConv.title, request: {}, response: {} })
-      const hid = String(h?.data?.id || newConv.id)
-      newConv.id = hid
+      const auth = useAuthStore()
+      if (!auth.isGuest) {
+        const h = await api.post('/history', { title: newConv.title, request: {}, response: {} })
+        const hid = String(h?.data?.id || newConv.id)
+        newConv.id = hid
+      }
     } catch {}
     addConversation(newConv)
     setCurrentConversation(newConv.id)
@@ -417,7 +430,10 @@ export const useChatStore = defineStore('chat', () => {
 
   const deleteConversation = async (conversationId: string) => {
     try {
-      await api.delete(`/history/${conversationId}`)
+      const auth = useAuthStore()
+      if (!auth.isGuest) {
+        await api.delete(`/history/${conversationId}`)
+      }
       const index = conversations.value.findIndex(c => c.id === conversationId)
       if (index !== -1) {
         conversations.value.splice(index, 1)
