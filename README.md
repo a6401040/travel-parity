@@ -81,9 +81,9 @@ frontend/
 
 # 系统截图
 ## 对话界面
-blob:https://n06v1fidmnc.feishu.cn/5d0f0456-804d-4ba3-b94f-51f860944154
+![alt text](748a3aac61f876a06eb3c49ed2764b1f.jpg)
 
-blob:https://n06v1fidmnc.feishu.cn/bcab88aa-fc46-4090-9a4a-ead69c216c98
+![alt text](d8bc5e42fc2839851d96c385be344430.jpg)
+
 ## 系统界面
-
-blob:https://n06v1fidmnc.feishu.cn/db112db6-434c-4128-ae23-5195f2550f32
+![alt text](72b3bdc9aedb3d147bc91dee159410eb.jpg)
