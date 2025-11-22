@@ -1,0 +1,43 @@
+import { Router } from 'express'
+import { router as options } from './options.js'
+import { router as recommendations } from './recommendations.js'
+import { router as llm } from './llm.js'
+import { router as dest } from './dest.js'
+import { router as history } from './history.js'
+import { router as schemes } from './schemes.js'
+import { router as auth } from './auth.js'
+import { router as subscriptions } from './subscriptions.js'
+import { router as user } from './user.js'
+import { router as settings } from './settings.js'
+import { router as appinfo } from './appinfo.js'
+import { router as exporting } from './exporting.js'
+import { router as mcp } from './mcp.js'
+import { router as railTools } from './railTools.js'
+import { router as air } from './air.js'
+import { router as metrics } from './metrics.js'
+import { router as amapTools } from './amapTools.js'
+import { router as compiled } from './compiled.js'
+import { router as llm } from './llm.js'
+import { router as history } from './history.js'
+
+export const router = Router()
+router.use(options)
+router.use(recommendations)
+router.use(llm)
+router.use(dest)
+router.use(history)
+router.use(schemes)
+router.use(auth)
+router.use(subscriptions)
+router.use(user)
+router.use(settings)
+router.use(appinfo)
+router.use(exporting)
+router.use(mcp)
+router.use(railTools)
+router.use(air)
+router.use(metrics)
+router.use(amapTools)
+router.use(compiled)
+router.use(llm)
+router.use(history)

@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background image classes for settings pages */
+.bg-settings { background-image: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-profile { background-image: url('https://images.unsplash.com/photo-1491557345352-5929e343eb89?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-profile-edit { background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-download { background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-about { background-image: url('https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-password { background-image: url('https://images.unsplash.com/photo-1491557345352-5929e343eb89?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-logout { background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-delete { background-image: url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+.bg-schemes { background-image: url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2560&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; }
+
+/* Common layout classes matching prototype */
+.hero { padding: 24px 16px; color: #fff; text-align: center; background: transparent; }
+.brand { font-weight: 700; font-size: 22px; letter-spacing: 0.5px; }
+.tag { opacity: 0.9; font-size: 13px; margin-top: 6px; }
+.center { display: flex; align-items: center; justify-content: center; padding: 16px; }
+.form-card { width: 360px; border: 1px solid #e6e8ec; background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); padding: 16px; display: grid; gap: 10px; }
+.form-title { font-weight: 600; font-size: 16px; }
+.form-links { display: flex; gap: 8px; justify-content: space-between; }
+.display-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.settings-center { display: flex; align-items: center; justify-content: center; padding: 16px; }
+.settings-menu { width: 460px; display: grid; gap: 10px; }
+.settings-link { display: block; text-align: center; border: 1px solid #e6e8ec; background: #fff; border-radius: 12px; padding: 12px; color: #222; text-decoration: none; font-weight: 600; }
+.settings-link:hover { background: #f7f9fc; }
+.settings-link.danger { border-color: #e74c3c; color: #e74c3c; }
+

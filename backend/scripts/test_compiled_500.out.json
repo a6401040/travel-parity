@@ -1,0 +1,9 @@
+{
+  "total": 500,
+  "ok": 0,
+  "hotelOk": 0,
+  "poiOk": 0,
+  "routeOk": 0,
+  "weatherOk": 0,
+  "okRate": 0
+}

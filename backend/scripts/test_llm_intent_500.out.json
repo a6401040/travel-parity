@@ -1,0 +1,13 @@
+{
+  "total": 500,
+  "ok": 318,
+  "nonTravelCount": 400,
+  "nonTravelCorrect": 212,
+  "travelCount": 100,
+  "travelOK": 106,
+  "routingCorrect": 318,
+  "okRate": 63.6,
+  "nonTravelCorrectRate": 53,
+  "travelOKRate": 106,
+  "routingCorrectRate": 63.6
+}
